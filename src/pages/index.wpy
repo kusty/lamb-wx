@@ -48,16 +48,20 @@ export default class Index extends wepy.page {
 
   methods = {};
 
-  fetchList() {
+  fetchList(type) {
     let self = this;
     wepy.request({
       url: "http://12.0.0.15:3900/scenic/getScenicList?page=" + self.page,
       success: function(d) {
         console.log(d);
         console.log(self.scenicList);
+        if (type === "refresh") {
+          self.scenicList = [];
+        }
         d.data.list.map(v => {
           self.scenicList.push(v);
         });
+
         console.log(self.scenicList);
       },
       error: function(e) {
@@ -80,8 +84,7 @@ export default class Index extends wepy.page {
 
   onPullDownRefresh() {
     this.page = 1;
-    this.scenicList = [];
-    this.fetchList();
+    this.fetchList("refresh");
   }
 }
 </script>
