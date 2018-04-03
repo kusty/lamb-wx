@@ -3,7 +3,7 @@
 </style>
 <template>
   <view class="container">
-    <repeat for="{{scenicList}}" index="index" item="item" key="key">
+    <repeat for="{{scenicList}}" index="item.id" item="item" key="item.id">
         <view class="zan-panel">
           <view class="zan-card">
               <view class="zan-card__thumb">
@@ -37,11 +37,13 @@ import wepy from "wepy";
 
 export default class Index extends wepy.page {
   config = {
-    navigationBarTitleText: "列表"
+    navigationBarTitleText: "景区列表",
+    enablePullDownRefresh: true
   };
 
   data = {
-    scenicList: []
+    scenicList: [],
+    page: 1
   };
 
   methods = {};
@@ -49,12 +51,17 @@ export default class Index extends wepy.page {
   fetchList() {
     let self = this;
     wepy.request({
-      url: "http://127.0.0.1:3900/scenic/getScenicList?page=2",
+      url: "http://12.0.0.15:3900/scenic/getScenicList?page=" + self.page,
       success: function(d) {
-        console.log(self.scenicList);
-        self.scenicList = d.data.list;
-        console.log(self);
         console.log(d);
+        console.log(self.scenicList);
+        d.data.list.map(v => {
+          self.scenicList.push(v);
+        });
+        console.log(self.scenicList);
+      },
+      error: function(e) {
+        console.log(e);
       }
     });
   }
@@ -64,6 +71,17 @@ export default class Index extends wepy.page {
   onLoad() {
     let self = this;
     self.fetchList();
+  }
+
+  onReachBottom(e) {
+    this.page++;
+    this.fetchList();
+  }
+
+  onPullDownRefresh() {
+    this.page = 1;
+    this.scenicList = [];
+    this.fetchList();
   }
 }
 </script>
