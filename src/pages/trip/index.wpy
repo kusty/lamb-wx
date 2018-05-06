@@ -1,0 +1,25 @@
+<template>
+  <view class="container">
+    trip
+  </view>
+</template>
+
+<script>
+import wepy from "wepy";
+import conf from "../../config";
+export default class Index extends wepy.page {
+  config = {
+    navigationBarTitleText: "行程",
+    enablePullDownRefresh: true
+  };
+
+  data = {
+    scenicList: [],
+    page: 1
+  };
+
+  methods = {};
+
+  events = {};
+}
+</script>

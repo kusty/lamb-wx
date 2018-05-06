@@ -1,5 +1,5 @@
 <style lang="less">
-@import "zanui/dist/index.wxss";
+@import "lib/zanui/dist/index.wxss";
 </style>
 
 <script>
@@ -8,7 +8,7 @@ import "wepy-async-function";
 
 export default class extends wepy.app {
   config = {
-    pages: ["pages/index"],
+    pages: ["pages/poi/index", "pages/mine/index", "pages/trip/index"],
     window: {
       backgroundTextStyle: "light",
       navigationBarBackgroundColor: "#fff",
@@ -19,12 +19,16 @@ export default class extends wepy.app {
     tabBar: {
       list: [
         {
-          text: "列表",
-          pagePath: "pages/index"
+          text: "景区",
+          pagePath: "pages/poi/index"
+        },
+        {
+          text: "行程",
+          pagePath: "pages/trip/index"
         },
         {
           text: "我的",
-          pagePath: "pages/index"
+          pagePath: "pages/mine/index"
         }
       ]
     }
@@ -44,10 +48,30 @@ export default class extends wepy.app {
     if (this.globalData.userInfo) {
       return this.globalData.userInfo;
     }
-    wepy.getUserInfo({
-      success(res) {
-        that.globalData.userInfo = res.userInfo;
-        cb && cb(res.userInfo);
+    wx.login({
+      success: function(res) {
+        if (res.code) {
+          wx.getUserInfo({
+            withCredentials: true,
+            lang: "zh_CN",
+            success(data) {
+              wx.request({
+                url: conf.apiUrl + "user/loginByWx",
+                method: "POST",
+                data: {
+                  code: res.code,
+                  encryptedData: data.encryptedData,
+                  iv: data.iv
+                },
+                success(res) {
+                  this.globalData.userInfo = res.data.body;
+                }
+              });
+            }
+          });
+        } else {
+          console.log("登录失败！" + res.errMsg);
+        }
       }
     });
   }

@@ -1,0 +1,26 @@
+<template>
+  <view class="container">
+    mine
+  </view>
+</template>
+
+<script>
+import wepy from "wepy";
+import conf from "../../config";
+export default class Index extends wepy.page {
+  config = {
+    navigationBarTitleText: "我的",
+    enablePullDownRefresh: true
+  };
+
+  data = {
+    scenicList: [],
+    page: 1,
+    token: ""
+  };
+
+  methods = {};
+
+  events = {};
+}
+</script>
