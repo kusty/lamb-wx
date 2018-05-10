@@ -1,8 +1,8 @@
 /*
  * @Author: kusty
  * @Date: 2018-05-10 16:02:43
- * @Last Modified by:   kusty
- * @Last Modified time: 2018-05-10 16:02:43
+ * @Last Modified by: kusty
+ * @Last Modified time: 2018-05-10 23:07:23
  */
 import wepy from 'wepy'
 
@@ -18,25 +18,26 @@ export default class Http {
       method: method,
       data: data
     }
-
     const res = await wepy.request(param)
     if (this.isSuccess(res)) {
-      return res.data.data
+      return res.data.body
     } else {
       throw this.handleError(res)
     }
   }
 
   /**
-   * 判断请求是否成功
+   *
+   *判断是否请求成功
+   * @static
+   * @param {any} res
+   * @returns
+   * @memberof Http
    */
   static isSuccess(res) {
-    const wxCode = res.statusCode
-    if (wxCode !== 200) {
-      return false
-    }
-    const wxData = res.data
-    return !(wxData && wxData.code !== 200)
+    const code = res.statusCode
+    if (code !== 200) { return false }
+    return !(res.data && res.data.status !== 200)
   }
 
   /**
