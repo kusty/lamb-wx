@@ -1,10 +1,32 @@
+<style lang="less">
+@color: #eeeeee;
+.container {
+  background-color: @color;
+}
+.zan-card__img {
+  width: 100px;
+  height: 100px;
+}
+.zan-card {
+  padding: 0;
+}
+.zan-card__thumb {
+  width: 100px;
+  height: 100px;
+}
+.zan-card__detail {
+  margin-left: 110px;
+  padding-right: 10px;
+}
+</style>
+
 <template>
   <view class="container">
     <repeat for="{{scenicList}}" index="item.id" item="item" key="item.id">
         <view class="zan-panel">
           <view class="zan-card">
               <view class="zan-card__thumb">
-                <image class="zan-card__img" src="{{'http://p72agnv0x.bkt.clouddn.com/'+item.profile_pic}}" mode="aspectFit"/>
+                <image class="zan-card__img" src="{{'http://p72agnv0x.bkt.clouddn.com/'+item.profile_pic+'?imageView2/1/w/100/h/100/q/100|imageslim'}}"/>
               </view>
               <view class="zan-card__detail">
                 <view class="zan-card__detail-row">
@@ -28,6 +50,7 @@
 
 <script>
 import wepy from "wepy";
+import Http from "../../utils/Http";
 import conf from "../../config";
 export default class Index extends wepy.page {
   config = {
@@ -46,30 +69,10 @@ export default class Index extends wepy.page {
     console.log(token);
     this.token = token;
   }
-  fetchList(type) {
+  async fetchList(type) {
     let self = this;
-    console.log(self.token);
-    wepy.request({
-      url: conf.apiUrl + "poi/getList?page=" + self.page,
-      header: {
-        Authorization: `Bearer ${self.token}`
-      },
-      success: function(d) {
-        console.log(d);
-        console.log(self.scenicList);
-        if (type === "refresh") {
-          self.scenicList = [];
-        }
-        d.data.body.list.map(v => {
-          self.scenicList.push(v);
-        });
-
-        console.log(self.scenicList);
-      },
-      error: function(e) {
-        console.log(e);
-      }
-    });
+    const a = await Http.get("http://127.0.0.1:3900/poi/getList", {});
+    console.log(a);
   }
 
   events = {};

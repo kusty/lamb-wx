@@ -2,14 +2,15 @@
  * @Author: kusty
  * @Date: 2018-05-10 16:02:43
  * @Last Modified by: kusty
- * @Last Modified time: 2018-05-10 23:07:23
+ * @Last Modified time: 2018-05-11 13:29:05
  */
 import wepy from 'wepy'
 
 /**
+ *
+ * Http封装
  * @export
  * @class Http
- * Http封装
  */
 export default class Http {
   static async request(method, url, data) {
@@ -41,7 +42,12 @@ export default class Http {
   }
 
   /**
-   * 异常
+   *
+   * 错误处理
+   * @static
+   * @param {any} res
+   * @returns
+   * @memberof Http
    */
   static handleError(res) {
     const error = {}
