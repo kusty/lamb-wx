@@ -22,8 +22,10 @@
 
 <template>
   <view class="container">
+    <button open-type="getUserInfo">a</button>
     <repeat for="{{scenicList}}" index="item.id" item="item" key="item.id">
         <view class="zan-panel">
+           
           <view class="zan-card">
               <view class="zan-card__thumb">
                 <image class="zan-card__img" src="{{'http://p72agnv0x.bkt.clouddn.com/'+item.profile_pic+'?imageView2/1/w/100/h/100/q/100|imageslim'}}"/>
@@ -50,8 +52,8 @@
 
 <script>
 import wepy from "wepy";
-import Http from "../../utils/Http";
-import conf from "../../config";
+import Auth from "../../service/Auth";
+
 export default class Index extends wepy.page {
   config = {
     navigationBarTitleText: "景区列表",
@@ -60,36 +62,15 @@ export default class Index extends wepy.page {
 
   data = {
     scenicList: [],
-    page: 1,
-    token: ""
+    page: 1
   };
 
   methods = {};
-  setToken(token) {
-    console.log(token);
-    this.token = token;
-  }
-  async fetchList(type) {
-    let self = this;
-    const a = await Http.get("http://127.0.0.1:3900/poi/getList", {});
-    console.log(a);
-  }
 
   events = {};
 
   onLoad() {
-    let self = this;
-    self.fetchList();
-  }
-
-  onReachBottom(e) {
-    this.page++;
-    this.fetchList();
-  }
-
-  onPullDownRefresh() {
-    this.page = 1;
-    this.fetchList("refresh");
+    Auth.loginByWx();
   }
 }
 </script>

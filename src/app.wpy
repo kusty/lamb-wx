@@ -11,7 +11,24 @@ export default class extends wepy.app {
     super();
     this.use("requestfix");
     this.use("promisify");
+    this.intercept("request", {
+      config(data) {
+        console.log(data);
+        data.header = this.createAuthHeader();
+        return data;
+      }
+    });
   }
+
+  createAuthHeader() {
+    const token = wepy.$instance.globalData.token;
+    const header = {};
+    if (token) {
+      header["Authorization"] = `Bearer ${token}`;
+    }
+    return header;
+  }
+
   config = {
     pages: ["pages/poi/index", "pages/mine/index", "pages/trip/index"],
     window: {
@@ -41,40 +58,8 @@ export default class extends wepy.app {
 
   globalData = {
     userInfo: null,
-    apiUrl: "http://127.0.0.1:3900"
+    token: null,
+    baseUrl: "http://127.0.0.1:3900"
   };
-
-  getUserInfo(cb) {
-    const that = this;
-    if (this.globalData.userInfo) {
-      return this.globalData.userInfo;
-    }
-    wx.login({
-      success: function(res) {
-        if (res.code) {
-          wx.getUserInfo({
-            withCredentials: true,
-            lang: "zh_CN",
-            success(data) {
-              wx.request({
-                url: conf.apiUrl + "user/loginByWx",
-                method: "POST",
-                data: {
-                  code: res.code,
-                  encryptedData: data.encryptedData,
-                  iv: data.iv
-                },
-                success(res) {
-                  this.globalData.userInfo = res.data.body;
-                }
-              });
-            }
-          });
-        } else {
-          console.log("登录失败！" + res.errMsg);
-        }
-      }
-    });
-  }
 }
 </script>
