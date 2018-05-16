@@ -1,0 +1,30 @@
+<template>
+  <view class="star_wrap">
+    <image src="/images/star.png" class="icon">
+    <image src="/images/star.png" class="icon">
+    <image src="/images/star.png" class="icon">
+    <image src="/images/star_gray.png" class="icon">
+    <image src="/images/star_gray.png" class="icon">
+  </view>
+</template>
+<script>
+import wepy from "wepy";
+import { imgUrl, imgMode } from "../config";
+export default class ScenicsItem extends wepy.component {
+  props = {
+    scenic: {}
+  };
+  data = {
+    imgUrl: imgUrl,
+    imgMode: imgMode
+  };
+}
+</script>
+<style lang="less">
+.star_wrap {
+  .icon {
+    width: 16px;
+    height: 16px;
+  }
+}
+</style>

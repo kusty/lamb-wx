@@ -1,8 +1,7 @@
 <template>
   <view class="container">
-    <button open-type="getUserInfo">a</button>
       <repeat for="{{list}}" index="item.id" item="item" key="item.id">
-        <ScenicsItem :data.sync="item"/>
+        <ScenicsItem :scenic.sync="item"/>
       </repeat>
   </view>
 </template>
@@ -37,3 +36,9 @@ export default class Index extends wepy.page {
   }
 }
 </script>
+<style lang="less" scoped>
+.container {
+  background-color: #eeeeee;
+}
+</style>
+

@@ -1,31 +1,70 @@
-<template >
-  <view class="zan-panel">
-          <view class="zan-card">
-              <view class="zan-card__thumb">
-                <image class="zan-card__img" src="{{'http://p72agnv0x.bkt.clouddn.com/'+data.profile_pic+'?imageView2/1/w/100/h/100/q/100|imageslim'}}"/>
-              </view>
-              <view class="zan-card__detail">
-                <view class="zan-card__detail-row">
-                  <view class="zan-card__right-col">¥ 999.99</view>
-                  <view class="zan-card__left-col zan-ellipsis--l2">
-                    {{data.name}}
-                  </view>
-                </view>
-                <view class="zan-card__detail-row zan-c-gray-darker">
-                  <view class="zan-card__right-col">x2</view>
-                  <view class="zan-card__left-col">
-                    3000克 50%
-                  </view>
-                </view>
-              </view>
-          </view>
+<template>
+  <view class="item_wrap">
+    <view class="img">
+      <image src="{{imgUrl+scenic.profile_pic+imgMode[120]}}" class="profile_pic"/>
+    </view>
+    <view class="info_wrap">
+      <view class="content">
+        <view class="name">{{scenic.name}}</view>
+        <view>{{scenic.price.substr(0,10)}}</view>
+        <view class="rate">
+          <StarRate :rate.sync="3"/>
         </view>
+        <view class="address">{{scenic.address}}</view>
+      </view>
+    </view>
+  </view>
 </template>
 <script>
 import wepy from "wepy";
+import StarRate from "./starRate";
+import { imgUrl, imgMode } from "../config";
 export default class ScenicsItem extends wepy.component {
   props = {
-    data: {}
+    scenic: {}
+  };
+  data = {
+    imgUrl: imgUrl,
+    imgMode: imgMode
+  };
+  components = {
+    StarRate: StarRate
   };
 }
 </script>
+<style lang="less">
+.item_wrap {
+  background-color: #ffffff;
+  margin-bottom: 10px;
+  font-size: 13px;
+  box-shadow: 3px;
+  .img {
+    float: left;
+    .profile_pic {
+      width: 120px;
+      height: 120px;
+    }
+  }
+  .info_wrap {
+    height: 120px;
+    padding-left: 120px;
+    .content {
+      padding-top: 5px;
+      padding-left: 10px;
+      padding-right: 10px;
+      .name {
+        color: #000000;
+        font-weight: 500;
+        font-size: 14px;
+      }
+      .rate {
+        margin-top: 10px;
+      }
+      .address {
+        margin-top: 40px;
+        color: #222222;
+      }
+    }
+  }
+}
+</style>
