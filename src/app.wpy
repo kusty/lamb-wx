@@ -21,7 +21,7 @@ export default class extends wepy.app {
   }
 
   createAuthHeader() {
-    const token = wepy.$instance.globalData.token;
+    const token = "";
     const header = {};
     if (token) {
       header["Authorization"] = `Bearer ${token}`;
@@ -30,7 +30,7 @@ export default class extends wepy.app {
   }
 
   config = {
-    pages: ["pages/poi/index", "pages/mine/index", "pages/trip/index"],
+    pages: ["pages/home/index", "pages/mine/index", "pages/trip/index"],
     window: {
       backgroundTextStyle: "light",
       navigationBarBackgroundColor: "#fff",
@@ -41,8 +41,8 @@ export default class extends wepy.app {
     tabBar: {
       list: [
         {
-          text: "景区",
-          pagePath: "pages/poi/index"
+          text: "首页",
+          pagePath: "pages/home/index"
         },
         {
           text: "行程",
@@ -54,12 +54,6 @@ export default class extends wepy.app {
         }
       ]
     }
-  };
-
-  globalData = {
-    userInfo: null,
-    token: null,
-    baseUrl: "http://127.0.0.1:3900"
   };
 }
 </script>

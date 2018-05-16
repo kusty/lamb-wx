@@ -1,11 +1,11 @@
 import wepy from 'wepy'
 
-export default class testMixin extends wepy.mixin {
-  data = {
-    mixin: 'This is mixin data.'
+export default class base extends wepy.mixin {
+  loaded() {
+    this.$apply()
   }
   methods = {
-    tap () {
+    tap() {
       this.mixin = 'mixin data was changed'
       console.log('mixin method tap')
     }

@@ -2,7 +2,7 @@
  * @Author: kusty
  * @Date: 2018-05-10 16:02:43
  * @Last Modified by: kusty
- * @Last Modified time: 2018-05-11 13:29:05
+ * @Last Modified time: 2018-05-13 21:54:20
  */
 import wepy from 'wepy'
 
@@ -72,10 +72,6 @@ export default class Http {
 
   static post(url, data, loading = true) {
     return this.request('POST', url, data, loading)
-  }
-
-  static patch(url, data, loading = true) {
-    return this.request('PATCH', url, data, loading)
   }
 
   static delete(url, data, loading = true) {

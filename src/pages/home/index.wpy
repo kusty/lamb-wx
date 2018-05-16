@@ -1,0 +1,39 @@
+<template>
+  <view class="container">
+    <button open-type="getUserInfo">a</button>
+      <repeat for="{{list}}" index="item.id" item="item" key="item.id">
+        <ScenicsItem :data.sync="item"/>
+      </repeat>
+  </view>
+</template>
+
+<script>
+import wepy from "wepy";
+import base from "../../mixins/base";
+import Auth from "../../service/Auth";
+import Scenics from "../../service/Scenics";
+import ScenicsItem from "../../components/scenicsItem";
+export default class Index extends wepy.page {
+  config = {
+    navigationBarTitleText: "首页",
+    enablePullDownRefresh: true
+  };
+
+  data = {
+    list: []
+  };
+
+  methods = {};
+
+  events = {};
+  components = {
+    ScenicsItem: ScenicsItem
+  };
+  mixins = [base];
+  async onLoad() {
+    const { list, pagination } = await Scenics.fetchList();
+    this.list = list;
+    this.$apply();
+  }
+}
+</script>
