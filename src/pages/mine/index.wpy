@@ -1,6 +1,9 @@
 <template>
   <view class="container">
-    mine
+    <view class="header">
+      <image src="../../images/man.png" class="avatar">
+      <view class="board" @tap="login">登录/注册</view>
+    </view>
   </view>
 </template>
 
@@ -19,8 +22,33 @@ export default class Index extends wepy.page {
     token: ""
   };
 
-  methods = {};
+  methods = {
+    login() {
+      this.$navigate("authorization");
+    }
+  };
 
   events = {};
 }
 </script>
+<style lang="less" scoped>
+.container {
+  background-color: #ffc400;
+  .header {
+    height: 50px;
+    padding: 20px;
+    .avatar {
+      height: 50px;
+      width: 50px;
+      float: left;
+    }
+    .board {
+      padding-left: 70px;
+      height: 50px;
+      font-size: 14px;
+      color: #323232;
+      line-height: 50px;
+    }
+  }
+}
+</style>

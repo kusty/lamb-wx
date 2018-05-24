@@ -1,0 +1,30 @@
+<template>
+  <view class="container">
+    <button open-type="getUserInfo">微信授权</button>
+  </view>
+</template>
+
+<script>
+import wepy from "wepy";
+import conf from "../../config";
+export default class Authorization extends wepy.page {
+  config = {
+    navigationBarTitleText: "微信授权登录"
+  };
+
+  data = {
+    scenicList: [],
+    page: 1,
+    token: ""
+  };
+
+  methods = {};
+
+  events = {};
+}
+</script>
+<style lang="less" scoped>
+.container {
+  background-color: #ffffff;
+}
+</style>

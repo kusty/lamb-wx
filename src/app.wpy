@@ -30,7 +30,12 @@ export default class extends wepy.app {
   }
 
   config = {
-    pages: ["pages/home/index", "pages/mine/index", "pages/trip/index"],
+    pages: [
+      "pages/mine/index",
+      "pages/home/index",
+      "pages/trip/index",
+      "pages/mine/authorization"
+    ],
     window: {
       backgroundTextStyle: "light",
       navigationBarBackgroundColor: "#fff",
@@ -42,6 +47,12 @@ export default class extends wepy.app {
       selectedColor: "#FF4500",
       list: [
         {
+          text: "我的",
+          iconPath: "images/mine.png",
+          selectedIconPath: "images/mine_selected.png",
+          pagePath: "pages/mine/index"
+        },
+        {
           text: "首页",
           iconPath: "images/home.png",
           selectedIconPath: "images/home_selected.png",
@@ -49,11 +60,9 @@ export default class extends wepy.app {
         },
         {
           text: "行程",
+          iconPath: "images/trip.png",
+          selectedIconPath: "images/trip_selected.png",
           pagePath: "pages/trip/index"
-        },
-        {
-          text: "我的",
-          pagePath: "pages/mine/index"
         }
       ]
     }

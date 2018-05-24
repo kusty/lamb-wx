@@ -9,14 +9,10 @@
 </template>
 <script>
 import wepy from "wepy";
-import { imgUrl, imgMode } from "../config";
+
 export default class ScenicsItem extends wepy.component {
   props = {
     scenic: {}
-  };
-  data = {
-    imgUrl: imgUrl,
-    imgMode: imgMode
   };
 }
 </script>
