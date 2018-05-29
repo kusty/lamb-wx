@@ -1,6 +1,10 @@
 <template>
   <view class="container">
-    <view class="header">
+    <view class="header" wx:if="{{isLogin}}">
+      <image src="{{imgUrl+user.avatar}}" class="avatar">
+      <view class="board">{{user.name}}</view>
+    </view>
+    <view class="header" wx:else>
       <image src="../../images/man.png" class="avatar">
       <view class="board" @tap="login">登录/注册</view>
     </view>
@@ -10,21 +14,25 @@
 <script>
 import wepy from "wepy";
 import conf from "../../config";
+import base from "../../mixins/base";
+import Auth from "../../service/Auth";
+
 export default class Index extends wepy.page {
   config = {
     navigationBarTitleText: "我的",
-    enablePullDownRefresh: true
+    enablePullDownRefresh: false
   };
 
   data = {
     scenicList: [],
     page: 1,
-    token: ""
+    token: "",
+    text: "2345"
   };
-
+  mixins = [base];
   methods = {
     login() {
-      this.$navigate("authorization");
+      this.$root.$navigate("authorization", { rtUrl: "/pages/mine/index" });
     }
   };
 
@@ -41,6 +49,7 @@ export default class Index extends wepy.page {
       height: 50px;
       width: 50px;
       float: left;
+      border-radius: 25px;
     }
     .board {
       padding-left: 70px;
@@ -49,6 +58,9 @@ export default class Index extends wepy.page {
       color: #323232;
       line-height: 50px;
     }
+  }
+  .className {
+    color: #ffc400;
   }
 }
 </style>

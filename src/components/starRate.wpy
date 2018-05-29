@@ -1,10 +1,10 @@
 <template>
   <view class="star_wrap">
-    <image src="/images/star.png" class="icon">
-    <image src="/images/star.png" class="icon">
-    <image src="/images/star.png" class="icon">
-    <image src="/images/star_gray.png" class="icon">
-    <image src="/images/star_gray.png" class="icon">
+    <image src="/images/star.png" class="icon"/>
+    <image src="/images/star.png" class="icon"/>
+    <image src="/images/star.png" class="icon"/>
+    <image src="/images/star_gray.png" class="icon"/>
+    <image src="/images/star_gray.png" class="icon"/>
   </view>
 </template>
 <script>
