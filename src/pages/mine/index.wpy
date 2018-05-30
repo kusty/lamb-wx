@@ -1,6 +1,6 @@
 <template>
   <view class="container">
-    <view class="header" wx:if="{{isLogin}}">
+    <view class="header" wx:if="{{user}}">
       <image src="{{imgUrl+user.avatar}}" class="avatar">
       <view class="board">{{user.name}}</view>
     </view>
@@ -13,10 +13,13 @@
 
 <script>
 import wepy from "wepy";
-import conf from "../../config";
+import { connect } from "wepy-redux";
 import base from "../../mixins/base";
-import Auth from "../../service/Auth";
-
+@connect({
+  user(state) {
+    return state.login.user;
+  }
+})
 export default class Index extends wepy.page {
   config = {
     navigationBarTitleText: "我的",

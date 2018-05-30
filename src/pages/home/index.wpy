@@ -8,10 +8,23 @@
 
 <script>
 import wepy from "wepy";
+import { connect } from "wepy-redux";
+import { UPDATE_USER } from "../../store/types";
 import base from "../../mixins/base";
 import Auth from "../../service/Auth";
 import Scenics from "../../service/Scenics";
 import ScenicsItem from "../../components/scenicsItem";
+@connect(
+  {
+    user(state) {
+      console.log(state);
+      return state.login.user;
+    }
+  },
+  {
+    updateUser: UPDATE_USER
+  }
+)
 export default class Index extends wepy.page {
   config = {
     navigationBarTitleText: "首页",
@@ -25,14 +38,20 @@ export default class Index extends wepy.page {
   methods = {};
 
   events = {};
+
   components = {
     ScenicsItem: ScenicsItem
   };
+
   mixins = [base];
   async onLoad() {
     const { list, pagination } = await Scenics.fetchList();
     this.list = list;
     this.$apply();
+    const data = await Auth.getUserInfo();
+    if (typeof data === "object" && data != null) {
+      this.methods.updateUser(data);
+    }
   }
 }
 </script>

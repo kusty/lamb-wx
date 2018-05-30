@@ -9,15 +9,10 @@ export default class base extends wepy.mixin {
   data = {
     imgUrl: imgUrl,
     imgMode: imgMode,
-    isLogin: false,
-    user: {}
   }
 
   methods = {
 
   }
-  async onShow() {
-    this.isLogin = await Auth.checkLogin()
-    this.user = await Auth.getUserInfo()
-  }
+
 }
