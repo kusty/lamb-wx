@@ -10,6 +10,7 @@ import configStore from "./store";
 
 const store = configStore();
 setStore(store);
+
 export default class extends wepy.app {
   constructor() {
     super();

@@ -23,12 +23,6 @@ export default class Index extends wepy.page {
     enablePullDownRefresh: false
   };
 
-  data = {
-    scenicList: [],
-    page: 1,
-    token: "",
-    text: "2345"
-  };
   mixins = [base];
   methods = {
     login() {
