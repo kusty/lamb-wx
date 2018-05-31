@@ -2,15 +2,13 @@
  * @Author: kusty
  * @Date: 2018-05-12 17:27:32
  * @Last Modified by: kusty
- * @Last Modified time: 2018-05-29 17:57:53
+ * @Last Modified time: 2018-05-31 11:30:31
  */
 import wepy from 'wepy'
 import Base from './Base'
 import Storage from '../utils/Storage'
 
 /**
- *
- *
  * @export
  * @class Auth
  * @extends {Base}
