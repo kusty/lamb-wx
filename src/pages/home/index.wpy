@@ -10,7 +10,7 @@
 import wepy from "wepy";
 import { connect } from "wepy-redux";
 import { UPDATE_USER } from "../../store/types";
-import { getUserInfo } from "../../store/actions";
+import { getUserInfo, fetchScenicList } from "../../store/actions";
 import base from "../../mixins/base";
 import Auth from "../../service/Auth";
 import Scenics from "../../service/Scenics";
@@ -19,11 +19,15 @@ import ScenicsItem from "../../components/scenicsItem";
   {
     user(state) {
       return state.login.user;
+    },
+    scenic(state) {
+      return state.scenic.scenic;
     }
   },
   {
     updateUser: UPDATE_USER,
-    getUserInfo
+    getUserInfo,
+    fetchScenicList
   }
 )
 export default class Index extends wepy.page {
@@ -46,11 +50,11 @@ export default class Index extends wepy.page {
 
   mixins = [base];
   async onLoad() {
-    const { list, pagination } = await Scenics.fetchList();
+    await this.methods.fetchScenicList();
+    const { list, pagination } = this.scenic;
     this.list = list;
     this.$apply();
     const data = await Auth.getUserInfo();
-    this.methods.getUserInfo();
     if (typeof data === "object" && data != null) {
       this.methods.updateUser(data);
     }
