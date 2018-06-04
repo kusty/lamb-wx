@@ -1,7 +1,13 @@
 <template>
-  <view class="container">
-    <view class="title">您还没有登录，请登录后查看行程</view>
-    <button class="btn" >登录</button>
+  <view>
+    <view class="container" wx:if="{{user}}">
+     <view>已登录</view>
+    </view>
+    <unLogin 
+      title="您还没有登录，请登录后查看行程" 
+      rtUrl="/pages/trip/index"
+      wx:else>
+    </unLogin>
   </view>
 </template>
 
@@ -9,6 +15,7 @@
 import wepy from "wepy";
 import conf from "../../config";
 import Auth from "../../service/Auth";
+import unLogin from "../../components/auth/unLogin";
 import { connect } from "wepy-redux";
 @connect({
   user(state) {
@@ -24,6 +31,10 @@ export default class Trip extends wepy.page {
   methods = {};
 
   events = {};
+
+  components = {
+    unLogin
+  };
 }
 </script>
 <style lang="less" scoped>

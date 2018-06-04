@@ -30,7 +30,9 @@ export default class Index extends wepy.page {
   mixins = [base];
   methods = {
     login() {
-      this.$root.$navigate("authorization", { rtUrl: "/pages/mine/index" });
+      this.$root.$navigate("../auth/authorization", {
+        rtUrl: "/pages/mine/index"
+      });
     }
   };
 
@@ -60,7 +62,6 @@ export default class Index extends wepy.page {
       line-height: 50px;
     }
   }
-
   .className {
     color: #ffc400;
   }

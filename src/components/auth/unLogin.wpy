@@ -1,17 +1,31 @@
 <template>
   <view class="container">
-    <view class="title">您还没有登录，请登录后查看行程</view>
-    <button open-type="getUserInfo"  class="btn" @getuserinfo="getUserInfo">登录</button>
+    <view class="title">{{title}}</view>
+    <button  class="btn" @tap="login">登录</button>
   </view>
 </template>
 
 <script>
 import wepy from "wepy";
 
-export default class unLogin extends wepy.page {
-  methods = {};
+export default class unLogin extends wepy.component {
+  props = {
+    title: String,
+    rtUrl: String
+  };
+
+  methods = {
+    login() {
+      this.$root.$navigate("../auth/authorization", {
+        rtUrl: this.rtUrl || "/pages/home/index"
+      });
+    }
+  };
 
   events = {};
+  onLoad() {
+    console.log(this.title);
+  }
 }
 </script>
 <style lang="less" scoped>
@@ -24,7 +38,6 @@ export default class unLogin extends wepy.page {
     line-height: 100px;
     text-align: center;
     margin-top: 200px;
-    color: #888888;
   }
   .btn {
     width: 100px;
