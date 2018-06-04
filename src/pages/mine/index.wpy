@@ -15,6 +15,7 @@
 import wepy from "wepy";
 import { connect } from "wepy-redux";
 import base from "../../mixins/base";
+
 @connect({
   user(state) {
     return state.login.user;
@@ -33,10 +34,13 @@ export default class Index extends wepy.page {
     }
   };
 
+  onLoad() {
+    console.log(this.user);
+  }
   events = {};
 }
 </script>
-<style lang="less" scoped>
+<style lang="less">
 .container {
   background-color: #ffc400;
   .header {
@@ -56,6 +60,7 @@ export default class Index extends wepy.page {
       line-height: 50px;
     }
   }
+
   .className {
     color: #ffc400;
   }

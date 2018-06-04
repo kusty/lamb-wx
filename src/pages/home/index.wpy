@@ -10,11 +10,10 @@
 import wepy from "wepy";
 import { connect } from "wepy-redux";
 import { UPDATE_USER } from "../../store/types";
-import { getUserInfo, fetchScenicList } from "../../store/actions";
+import { getUserInfo, fetchScenicList, login } from "../../store/actions";
 import base from "../../mixins/base";
-import Auth from "../../service/Auth";
 import Scenics from "../../service/Scenics";
-import ScenicsItem from "../../components/scenicsItem";
+import ScenicsItem from "../../components/scenics/scenicsItem";
 @connect(
   {
     user(state) {
@@ -25,12 +24,12 @@ import ScenicsItem from "../../components/scenicsItem";
     }
   },
   {
-    updateUser: UPDATE_USER,
     getUserInfo,
-    fetchScenicList
+    fetchScenicList,
+    login
   }
 )
-export default class Index extends wepy.page {
+export default class Home extends wepy.page {
   config = {
     navigationBarTitleText: "首页",
     enablePullDownRefresh: true
@@ -48,16 +47,24 @@ export default class Index extends wepy.page {
     ScenicsItem: ScenicsItem
   };
 
-  mixins = [base];
-  async onLoad() {
+  async initUser() {
+    if (!this.user) {
+      await this.methods.getUserInfo();
+    }
+  }
+
+  async initData() {
     await this.methods.fetchScenicList();
     const { list, pagination } = this.scenic;
     this.list = list;
-    this.$apply();
-    const data = await Auth.getUserInfo();
-    if (typeof data === "object" && data != null) {
-      this.methods.updateUser(data);
-    }
+  }
+
+  mixins = [base];
+
+  async onLoad() {
+    await this.initData();
+    this.loaded();
+    this.initUser();
   }
 }
 </script>

@@ -1,26 +1,14 @@
 <template>
   <view class="container">
     <view class="title">您还没有登录，请登录后查看行程</view>
-    <button class="btn" >登录</button>
+    <button open-type="getUserInfo"  class="btn" @getuserinfo="getUserInfo">登录</button>
   </view>
 </template>
 
 <script>
 import wepy from "wepy";
-import conf from "../../config";
-import Auth from "../../service/Auth";
-import { connect } from "wepy-redux";
-@connect({
-  user(state) {
-    return state.login.user;
-  }
-})
-export default class Trip extends wepy.page {
-  config = {
-    navigationBarTitleText: "行程",
-    enablePullDownRefresh: false
-  };
 
+export default class unLogin extends wepy.page {
   methods = {};
 
   events = {};

@@ -18,7 +18,7 @@
 <script>
 import wepy from "wepy";
 import StarRate from "./starRate";
-import { imgUrl, imgMode } from "../config";
+import { imgUrl, imgMode } from "../../config";
 export default class ScenicsItem extends wepy.component {
   props = {
     scenic: {}

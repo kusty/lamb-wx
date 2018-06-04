@@ -7,8 +7,20 @@
 
 <script>
 import wepy from "wepy";
+import { connect } from "wepy-redux";
 import conf from "../../config";
 import Auth from "../../service/Auth";
+import { login } from "../../store/actions";
+@connect(
+  {
+    user(state) {
+      return state.login.user;
+    }
+  },
+  {
+    login
+  }
+)
 export default class Authorization extends wepy.page {
   config = {
     navigationBarTitleText: "微信授权登录",
@@ -21,19 +33,14 @@ export default class Authorization extends wepy.page {
     async getUserInfo(data) {
       const { encryptedData, iv } = data.detail;
       if (encryptedData && iv) {
-        const result = await Auth.loginByWx(data.detail);
-        if (result) {
-          wepy.reLaunch({ url: this.rtUrl });
-        }
+        await this.methods.login(data.detail);
+        wepy.reLaunch({ url: this.rtUrl });
       } else {
         console.log("拒绝了");
       }
     }
   };
 
-  async onRoute(data) {
-    const isLogin = await Auth.checkLogin();
-  }
   onLoad({ rtUrl }) {
     if (rtUrl) this.rtUrl = rtUrl;
   }

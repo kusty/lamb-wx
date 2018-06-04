@@ -2,7 +2,7 @@
  * @Author: kusty
  * @Date: 2018-05-10 16:02:43
  * @Last Modified by: kusty
- * @Last Modified time: 2018-05-28 22:51:27
+ * @Last Modified time: 2018-06-04 17:18:10
  */
 import wepy from 'wepy'
 
@@ -20,7 +20,6 @@ export default class Http {
       data: data
     }
     const res = await wepy.request(param)
-    console.log(res)
     if (this.isSuccess(res)) {
       return res.data.body
     } else {
